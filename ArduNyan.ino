@@ -93,15 +93,15 @@ void loop()
 
 void paintScreen(uint8_t image[], uint16_t colour)
 {
-  for (uint8_t t = 0; t < 8; t++)
+  for (uint8_t t = 0; t < 8; t++) // eight pages
   {
-    for (uint8_t r = 0; r < 8; r++)
+    for (uint8_t r = 0; r < 8; r++) // eight rows per page
     {
       uint16_t a = t * 128;
 
       uint8_t bitMask = B00000001 << r;
 
-      for (uint8_t i = 0; i < 128; i++)
+      for (uint8_t i = 0; i < 128; i++) // 128 pixels per row
       {  
         if (image[a++] & bitMask) tft.pushColor(colour);
         else                      tft.pushColor(BLACK);
