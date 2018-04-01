@@ -17,7 +17,7 @@
                       // in which case, set this #define pin to -1!
 #define TFT_DC     4
 
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 uint8_t sBuffer[1024];
 
@@ -93,8 +93,6 @@ void loop()
 
 void paintScreen(uint8_t image[], uint16_t colour)
 {
-  static uint16_t tempColour;
-
   for (uint8_t t = 0; t < 8; t++)
   {
     for (uint8_t r = 0; r < 8; r++)
@@ -105,12 +103,8 @@ void paintScreen(uint8_t image[], uint16_t colour)
 
       for (uint8_t i = 0; i < 128; i++)
       {  
-        if (image[a] & bitMask) tempColour = colour;
-        else                    tempColour = BLACK;
-
-        a++;
-
-        tft.pushColor(tempColour);
+        if (image[a++] & bitMask) tft.pushColor(colour);
+        else                      tft.pushColor(BLACK);
       }
     }
   }
@@ -218,4 +212,3 @@ void clear()
 {
   fillScreen(BLACK);
 }
-
